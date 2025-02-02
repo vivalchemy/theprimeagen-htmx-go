@@ -1,0 +1,23 @@
+{{ block "form" . }}
+<form hx-post="/contacts" hx-swap="outerHTML" >
+  <div style="display:flex; align-items:center; gap: 1rem">
+    <label for="name">Name</label>
+    <input type="text" name="name"
+      {{ if .Values.name }} value="{{ .Values.name }}" {{ end }}
+    >
+  </div>
+  {{ if .Errors.name }}
+  <small style="color:red">{{ .Errors.name }}</small>
+  {{ end }}
+  <div style="display:flex; align-items:center; gap: 1rem">
+    <label for="email">Email</label>
+    <input type="email" name="email" 
+      {{ if .Values.email }} value="{{ .Values.email }}" {{ end }}
+    >
+  </div>
+  {{ if .Errors.email }}
+  <small style="color:red">{{ .Errors.email }}</small>
+  {{ end }}
+  <button type="submit">Submit</button>
+</form>
+{{ end }}

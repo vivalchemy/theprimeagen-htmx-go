@@ -1,0 +1,33 @@
+{{ block "contacts" . }}
+<div  >
+  <h1>Contacts</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="contacts">
+      {{ range .Contacts }}
+      {{ template "contact" . }}
+      {{ end }}
+    </tbody>
+  </table>
+</div>
+{{end}}
+
+{{ block "oob-contact" . }}
+<div id="contacts" hx-swap-oob="true">
+  {{ template "contact" . }}
+</div>
+{{ end }}
+
+{{ block "contact" . }}
+<tr>
+  <td>{{ .Name }}</td>
+  <td>{{ .Email }}</td>
+</tr>
+{{ end }}
+
+

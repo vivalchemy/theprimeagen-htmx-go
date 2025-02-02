@@ -1,0 +1,48 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
+    <script 
+    src="https://unpkg.com/htmx.org@1.9.12" 
+    integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" 
+    crossorigin="anonymous">
+    </script>
+  </head>
+  <body style="display: flex; gap: 2rem; justify-content: center; align-items: center;min-height: 100vh; padding: 2rem">
+    <!-- <body> -->
+    <div id="contact-form-wrapper">
+      {{/* This is a comment
+      {{ template "count" . }}
+    </div>
+    <button hx-post="/count" hx-target="#count">Count</button>
+    */}}
+    {{ template "form" .Form }}
+    <hr/>
+    {{ template "contacts" .Data }}
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      document.body.addEventListener('htmx:beforeSwap', function(evt) {
+        if (evt.detail.xhr.status === 422) {
+          // allow 422 responses to swap as we are using this as a signal that
+          // a form was submitted with bad data and want to rerender with the
+          // errors
+          //
+          // set isError to false to avoid error logging in console
+          evt.detail.shouldSwap = true;
+          evt.detail.isError = false;
+        }
+      });
+    })
+    </script>
+  </body>
+</html>
+{{ end }}
+
